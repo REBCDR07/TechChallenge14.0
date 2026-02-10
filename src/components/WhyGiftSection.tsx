@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { Heart, ShieldCheck, Sparkles, Gift } from 'lucide-react';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 /**
  * Section "Pourquoi offrir cette peluche"
  * Crée une connexion émotionnelle forte avec un design premium
  */
 const WhyGiftSection = () => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   const reasons = [
@@ -14,29 +16,29 @@ const WhyGiftSection = () => {
       id: 1,
       icon: Heart,
       color: "text-rose-500",
-      title: 'Un Amour Éternel',
-      description: 'Plus qu\'un simple cadeau, c\'est un symbole de tendresse qui traverse les années sans jamais perdre sa douceur.',
+      title: t('why_gift.reason1_title'),
+      description: t('why_gift.reason1_desc'),
     },
     {
       id: 2,
       icon: Sparkles,
       color: "text-amber-400",
-      title: 'Présence Réconfortante',
-      description: 'Conçue pour offrir un apaisement immédiat, elle devient la gardienne de vos plus beaux secrets et moments de paix.',
+      title: t('why_gift.reason2_title'),
+      description: t('why_gift.reason2_desc'),
     },
     {
       id: 3,
       icon: Gift,
       color: "text-primary",
-      title: 'Souvenir Inoubliable',
-      description: 'Transformez la Saint-Valentin en une émotion palpable que votre moitié pourra serrer contre son cœur chaque jour.',
+      title: t('why_gift.reason3_title'),
+      description: t('why_gift.reason3_desc'),
     },
     {
       id: 4,
       icon: ShieldCheck,
       color: "text-emerald-500",
-      title: 'Qualité d\'Exception',
-      description: 'Chaque couture est une promesse de durabilité, utilisant des matériaux nobles et hypoallergéniques pour un respect total.',
+      title: t('why_gift.reason4_title'),
+      description: t('why_gift.reason4_desc'),
     },
   ];
 
@@ -56,8 +58,8 @@ const WhyGiftSection = () => {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { 
-        type: "spring",
+      transition: {
+        type: "spring" as const,
         stiffness: 100,
         damping: 15
       },
@@ -84,7 +86,7 @@ const WhyGiftSection = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-montserrat font-bold mb-6"
           >
             <Heart className="w-4 h-4 fill-primary" />
-            L'excellence du cadeau
+            {t('why_gift.badge')}
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -92,8 +94,7 @@ const WhyGiftSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-rajdhani font-bold text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight"
           >
-            Pourquoi cette peluche <br className="hidden sm:block" />
-            <span className="text-secondary">ravira son cœur</span> ❤️
+            {t('why_gift.title')}
           </motion.h2>
         </div>
 
@@ -112,7 +113,7 @@ const WhyGiftSection = () => {
             >
               {/* Glow effect on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl -z-10" />
-              
+
               {/* Icône Container */}
               <div className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-background shadow-inner flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
                 <reason.icon className={`w-8 h-8 lg:w-10 lg:h-10 ${reason.color}`} />

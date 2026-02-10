@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { Benefit } from '@/types';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 // Import des images
 import plushLifestyle from '@/assets/plush-lifestyle.jpg';
@@ -12,31 +13,29 @@ import plushCouple from '@/assets/plush-couple.jpg';
  * Projette l'acheteur dans l'expérience
  */
 const EmotionalBenefits = () => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   const benefits: Benefit[] = [
     {
       id: 1,
       icon: '🌙',
-      title: 'Réconfort permanent',
-      description:
-        "Un câlin disponible 24h/24. Quand la distance sépare, elle rapproche les cœurs.",
+      title: t('emotional_benefits.benefit1_title'),
+      description: t('emotional_benefits.benefit1_desc'),
       image: plushLifestyle,
     },
     {
       id: 2,
       icon: '💞',
-      title: 'Lien émotionnel',
-      description:
-        "Chaque fois qu'elle/il la voit, c'est à vous qu'elle/il pense. Un rappel doux de votre amour.",
+      title: t('emotional_benefits.benefit2_title'),
+      description: t('emotional_benefits.benefit2_desc'),
       image: plushHands,
     },
     {
       id: 3,
       icon: '✨',
-      title: 'Moment magique',
-      description:
-        'La surprise qui illumine le visage. Ce moment où les yeux brillent de joie pure.',
+      title: t('emotional_benefits.benefit3_title'),
+      description: t('emotional_benefits.benefit3_desc'),
       image: plushCouple,
     },
   ];
@@ -72,7 +71,7 @@ const EmotionalBenefits = () => {
           transition={{ duration: 0.5 }}
           className="font-rajdhani font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-center text-primary mb-12 lg:mb-16"
         >
-          Plus qu'un cadeau, une émotion quotidienne
+          {t('emotional_benefits.title')}
         </motion.h2>
 
         {/* Grille des bénéfices */}
@@ -86,9 +85,8 @@ const EmotionalBenefits = () => {
             <motion.div
               key={benefit.id}
               variants={itemVariants}
-              className={`group bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-secondary ${
-                idx % 2 === 1 ? 'lg:bg-secondary/5' : ''
-              }`}
+              className={`group bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-secondary ${idx % 2 === 1 ? 'lg:bg-secondary/5' : ''
+                }`}
             >
               {/* Image */}
               <div className="overflow-hidden">

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 /**
  * ExitIntentModal - Modal popup de sortie avec offre spéciale
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button';
  * S'affiche au centre de l'écran
  */
 const ExitIntentModal = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
 
@@ -37,7 +39,7 @@ const ExitIntentModal = () => {
 
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    
+
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -79,7 +81,7 @@ const ExitIntentModal = () => {
             <div className="relative w-full max-w-md pointer-events-auto bg-gradient-to-br from-background via-background to-secondary/20 rounded-3xl shadow-2xl overflow-hidden border-4 border-primary">
               {/* Effet de brillance */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 pointer-events-none" />
-              
+
               {/* Bouton fermer */}
               <button
                 onClick={handleClose}
@@ -93,12 +95,12 @@ const ExitIntentModal = () => {
               <div className="relative p-8 sm:p-10 text-center">
                 {/* Emoji animé avec effet de rebond */}
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: [0, -15, 15, -15, 0],
                     scale: [1, 1.2, 1],
                   }}
-                  transition={{ 
-                    duration: 2, 
+                  transition={{
+                    duration: 2,
                     repeat: Infinity,
                     repeatDelay: 1.5,
                   }}
@@ -114,7 +116,7 @@ const ExitIntentModal = () => {
                   transition={{ delay: 0.2 }}
                   className="font-rajdhani font-bold text-3xl sm:text-4xl text-primary mb-3"
                 >
-                  Attendez ! Ne partez pas...
+                  {t('exit_modal.title')}
                 </motion.h2>
 
                 {/* Sous-titre */}
@@ -124,7 +126,7 @@ const ExitIntentModal = () => {
                   transition={{ delay: 0.3 }}
                   className="font-montserrat font-extrabold text-xl text-foreground mb-6"
                 >
-                  On a une surprise pour vous ! 🎁
+                  {t('exit_modal.subtitle')}
                 </motion.p>
 
                 {/* Offre spéciale avec animation */}
@@ -140,17 +142,17 @@ const ExitIntentModal = () => {
                       transition={{ duration: 1.5, repeat: Infinity }}
                       className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-sm font-montserrat font-extrabold shadow-lg"
                     >
-                      ✨ OFFRE EXCLUSIVE ✨
+                      {t('exit_modal.badge')}
                     </motion.span>
                   </div>
                   <p className="font-rajdhani font-bold text-5xl sm:text-6xl text-primary mb-2">
                     -15%
                   </p>
                   <p className="font-montserrat font-extrabold text-lg text-foreground mb-1">
-                    SUPPLÉMENTAIRES
+                    {t('exit_modal.discount_type')}
                   </p>
                   <p className="font-roboto text-base text-muted-foreground">
-                    Code : <span className="font-bold text-primary text-lg">RESTEZ15</span>
+                    {t('exit_modal.code')} <span className="font-bold text-primary text-lg">RESTEZ15</span>
                   </p>
                 </motion.div>
 
@@ -161,7 +163,7 @@ const ExitIntentModal = () => {
                   transition={{ delay: 0.5 }}
                   className="font-roboto text-sm text-muted-foreground mb-6"
                 >
-                  ⏰ Valable uniquement dans les <span className="font-bold text-primary">10 prochaines minutes</span> !
+                  {t('exit_modal.urgency').replace('{minutes}', '10')}
                 </motion.p>
 
                 {/* CTA principal */}
@@ -175,7 +177,7 @@ const ExitIntentModal = () => {
                     size="lg"
                     className="w-full py-7 text-xl font-montserrat font-extrabold bg-primary hover:bg-secondary text-primary-foreground hover:scale-105 transition-all duration-300 shadow-xl rounded-2xl"
                   >
-                    J'en profite maintenant 💝
+                    {t('exit_modal.button')}
                   </Button>
                 </motion.div>
 
@@ -187,7 +189,7 @@ const ExitIntentModal = () => {
                   onClick={handleClose}
                   className="mt-5 font-roboto text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
                 >
-                  Non merci, je laisse passer cette offre
+                  {t('exit_modal.close')}
                 </motion.button>
               </div>
 

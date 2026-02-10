@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Check, Star, Sparkles, Zap, Crown, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslation } from '@/contexts/LanguageContext';
 import { PricingOption } from '@/types';
 import { ElectricCard } from '@/components/ui/electric-card';
 
@@ -19,57 +20,58 @@ interface PricingGridProps {
  * Présente la peluche sous différentes formules avec un design premium
  */
 const PricingGrid = ({ onCtaClick }: PricingGridProps) => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   const pricingOptions: PricingOption[] = [
     {
       id: 1,
-      title: "L'Essentielle",
-      subtitle: 'La douceur à l\'état pur',
+      title: t('pricing.option1_title'),
+      subtitle: t('pricing.option1_subtitle'),
       price: 29.9,
       features: [
-        'La peluche premium 35cm',
-        'Emballage soigné',
-        'Certificat d\'authenticité',
+        t('pricing.option1_feature1'),
+        t('pricing.option1_feature2'),
+        t('pricing.option1_feature3'),
       ],
       image: plushFront,
-      ctaText: 'Choisir la douceur',
+      ctaText: t('pricing.option1_cta'),
       icon: Heart,
     },
     {
       id: 2,
-      title: 'La Romantique',
-      subtitle: 'Pour faire chavirer son cœur',
+      title: t('pricing.option2_title'),
+      subtitle: t('pricing.option2_subtitle'),
       price: 34.9,
       originalPrice: 39.9,
-      badge: 'COUP DE CŒUR ❤️',
+      badge: t('pricing.option2_badge'),
       recommended: true,
       features: [
-        'Tout de la formule Essentielle',
-        'Boîte cadeau luxe magnétique',
-        'Carte personnalisable',
-        'Pétales de roses éternelles',
-        'Livraison Express Offerte 🚀',
+        t('pricing.option2_feature1'),
+        t('pricing.option2_feature2'),
+        t('pricing.option2_feature3'),
+        t('pricing.option2_feature4'),
+        t('pricing.option2_feature5'),
       ],
       image: plushGiftBox,
-      ctaText: 'Je veux l\'émouvoir 💝',
+      ctaText: t('pricing.option2_cta'),
       icon: Sparkles,
     },
     {
       id: 3,
-      title: 'L\'Inoubliable',
-      subtitle: 'L\'expérience ultime',
+      title: t('pricing.option3_title'),
+      subtitle: t('pricing.option3_subtitle'),
       price: 49.9,
-      badge: 'ÉDITION PRESTIGE',
+      badge: t('pricing.option3_badge'),
       features: [
-        'Signature "Romantique" incluse',
-        'Coffret Chocolats d\'Artisan',
-        'Bougie "Nuit d\'Amour" (180g)',
-        'Bracelet en pierre naturelle',
-        'Service Conciergerie 24/7',
+        t('pricing.option3_feature1'),
+        t('pricing.option3_feature2'),
+        t('pricing.option3_feature3'),
+        t('pricing.option3_feature4'),
+        t('pricing.option3_feature5'),
       ],
       image: plushPremium,
-      ctaText: 'Offrir l\'exception',
+      ctaText: t('pricing.option3_cta'),
       icon: Crown,
     },
   ];
@@ -88,7 +90,7 @@ const PricingGrid = ({ onCtaClick }: PricingGridProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 20
       },
@@ -117,16 +119,15 @@ const PricingGrid = ({ onCtaClick }: PricingGridProps) => {
           className="text-center mb-16 lg:mb-24"
         >
           <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary text-sm font-bold mb-4 font-montserrat">
-            OFFRE LIMITÉE SAINT-VALENTIN
+            {t('pricing.badge')}
           </span>
           <h2 className="font-rajdhani font-bold text-4xl sm:text-5xl lg:text-6xl text-primary mb-6 leading-tight">
-            Offrez plus qu'un cadeau,<br />
-            <span className="text-secondary">offrez une émotion</span> 🎁
+            {t('pricing.title')}
           </h2>
           <p className="font-roboto text-lg text-muted-foreground max-w-2xl mx-auto">
-            Chaque formule est conçue avec soin pour créer un moment magique lors du déballage.
+            {t('pricing.subtitle')}
             <br />
-            <span className="font-bold text-primary">📦 Livraison garantie avant le 14 février.</span>
+            <span className="font-bold text-primary">{t('pricing.shipping_info')}</span>
           </p>
         </motion.div>
 

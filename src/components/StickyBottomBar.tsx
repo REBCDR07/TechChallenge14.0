@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 interface StickyBottomBarProps {
   onCtaClick?: (event: React.MouseEvent) => void;
@@ -11,6 +12,7 @@ interface StickyBottomBarProps {
  * Visible uniquement sur mobile après scroll
  */
 const StickyBottomBar = ({ onCtaClick }: StickyBottomBarProps) => {
+  const { t } = useTranslation();
   const scrollPosition = useScrollPosition();
   const isVisible = scrollPosition > 500;
 
@@ -34,7 +36,7 @@ const StickyBottomBar = ({ onCtaClick }: StickyBottomBarProps) => {
             {/* Prix */}
             <div>
               <p className="font-roboto text-xs text-muted-foreground">
-                À partir de
+                {t('sticky_bar.from')}
               </p>
               <p className="font-rajdhani font-bold text-2xl text-primary">
                 29,90€
@@ -46,7 +48,7 @@ const StickyBottomBar = ({ onCtaClick }: StickyBottomBarProps) => {
               onClick={scrollToOffer}
               className="flex-1 max-w-[200px] py-4 bg-primary hover:bg-secondary text-primary-foreground font-montserrat font-extrabold"
             >
-              Offrir maintenant
+              {t('sticky_bar.button')}
             </Button>
           </div>
         </motion.div>

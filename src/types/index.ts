@@ -20,6 +20,7 @@ export interface PricingOption {
   features: string[];
   image: string;
   ctaText: string;
+  icon: any;
 }
 
 export interface Benefit {

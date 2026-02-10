@@ -3,6 +3,7 @@ import { Check, ChevronRight, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TextEffect from '@/components/motion-primitives/TextEffect';
 import AnimatedGroup from '@/components/motion-primitives/AnimatedGroup';
+import { useTranslation } from '@/contexts/LanguageContext';
 import heroPlush from '@/assets/hero-plush.jpg';
 
 interface HeroSectionProps {
@@ -34,6 +35,7 @@ const transitionVariants = {
  * Mobile-first avec CTA percutant et effets Waouh (Tilt 3D + Heartbeat)
  */
 const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
+  const { t } = useTranslation();
   const scrollToOffer = (event: React.MouseEvent) => {
     onCtaClick?.(event);
     const element = document.getElementById('pricing');
@@ -91,10 +93,10 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
               className="group inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 shadow-lg backdrop-blur-sm hover:bg-primary/10 transition-all duration-300"
             >
               <span className="bg-primary text-primary-foreground px-3 py-0.5 rounded-full text-sm font-montserrat font-extrabold">
-                💕 Saint-Valentin 2025
+                {t('hero.badge_event')}
               </span>
               <span className="font-roboto text-sm text-foreground flex items-center gap-1">
-                Offre limitée
+                {t('hero.badge_offer')}
                 <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.a>
@@ -108,7 +110,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
               className="font-rajdhani font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-balance text-foreground leading-tight"
               speedReveal={0.8}
             >
-              Offrez l'amour qui réchauffe les cœurs
+              {t('hero.title')}
             </TextEffect>
           </div>
 
@@ -118,7 +120,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
             variants={{ item: transitionVariants.item }}
           >
             <p className="font-montserrat font-extrabold text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance">
-              La peluche qui dit <span className="text-primary">"Je t'aime"</span> chaque jour 💕
+              {t('hero.subtitle')}
             </p>
           </AnimatedGroup>
 
@@ -146,7 +148,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
                 className="w-full sm:w-auto px-10 py-6 text-lg font-montserrat font-extrabold bg-primary hover:bg-secondary text-primary-foreground transition-all duration-300 shadow-xl rounded-full group relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center">
-                  Je veux l'offrir
+                  {t('hero.cta_primary')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </span>
                 {/* Shine Effect */}
@@ -160,7 +162,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
               onClick={() => document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto px-8 py-6 text-lg font-montserrat font-extrabold text-foreground hover:text-primary transition-colors rounded-full"
             >
-              Découvrir la peluche
+              {t('hero.cta_secondary')}
             </Button>
           </AnimatedGroup>
 
@@ -211,10 +213,10 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
                 </div>
                 <div>
                   <p className="font-montserrat font-extrabold text-sm text-foreground">
-                    En stock
+                    {t('hero.trust_stock')}
                   </p>
                   <p className="font-roboto text-xs text-muted-foreground">
-                    Expédié demain
+                    {t('hero.trust_shipping')}
                   </p>
                 </div>
               </motion.div>
@@ -226,10 +228,10 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
                 </div>
                 <div>
                   <p className="font-montserrat font-extrabold text-sm text-card-foreground">
-                    Livraison garantie
+                    {t('hero.trust_delivery')}
                   </p>
                   <p className="font-roboto text-xs text-muted-foreground">
-                    Avant le 14 février
+                    {t('hero.trust_date')}
                   </p>
                 </div>
               </div>
@@ -245,9 +247,9 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
             className="flex flex-wrap items-center justify-center gap-6 mt-16"
           >
             {[
-              { icon: '⭐', label: '4.9/5 étoiles' },
-              { icon: '🚚', label: 'Livraison gratuite' },
-              { icon: '💯', label: 'Satisfait ou remboursé' },
+              { icon: '⭐', label: t('hero.trust_rating') },
+              { icon: '🚚', label: t('hero.trust_free_shipping') },
+              { icon: '💯', label: t('hero.trust_guarantee') },
             ].map((item, idx) => (
               <div
                 key={idx}

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Truck, ShieldCheck, Undo2, Gift, Sparkles, Lock } from 'lucide-react';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslation } from '@/contexts/LanguageContext';
 import { Guarantee } from '@/types';
 
 /**
@@ -8,38 +9,39 @@ import { Guarantee } from '@/types';
  * Lève les objections et construit la confiance avec un design professionnel
  */
 const ReassuranceSection = () => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   const guarantees = [
     {
       id: 1,
       icon: Truck,
-      title: 'Expédition 24/48h',
-      description: 'Livraison suivie & rapide garantie avant le 14 Février.',
+      title: t('reassurance.g1_title'),
+      description: t('reassurance.g1_desc'),
     },
     {
       id: 2,
       icon: Lock,
-      title: 'Paiement Sécurisé',
-      description: 'Transactions chiffrées SSL & protection 3D Secure.',
+      title: t('reassurance.g2_title'),
+      description: t('reassurance.g2_desc'),
     },
     {
       id: 3,
       icon: Undo2,
-      title: 'Satisfait ou Remboursé',
-      description: '30 jours pour changer d\'avis. Retour simplifié.',
+      title: t('reassurance.g3_title'),
+      description: t('reassurance.g3_desc'),
     },
     {
       id: 4,
       icon: Gift,
-      title: 'Emballage Offert',
-      description: 'Votre peluche arrive prête à offrir dans sa boîte luxe.',
+      title: t('reassurance.g4_title'),
+      description: t('reassurance.g4_desc'),
     },
     {
       id: 5,
       icon: Sparkles,
-      title: 'Qualité Contrôlée',
-      description: 'Chaque peluche est vérifiée à la main avant envoi.',
+      title: t('reassurance.g5_title'),
+      description: t('reassurance.g5_desc'),
     },
   ];
 
@@ -73,7 +75,7 @@ const ReassuranceSection = () => {
           transition={{ duration: 0.5 }}
           className="font-rajdhani font-medium text-2xl sm:text-3xl text-center text-primary/80 mb-12 lg:mb-16 tracking-wide uppercase"
         >
-          Commander en toute sérénité
+          {t('reassurance.title')}
         </motion.h2>
 
         {/* Grille des garanties */}
@@ -120,7 +122,7 @@ const ReassuranceSection = () => {
           <div className="flex items-center gap-2 text-muted-foreground">
             <ShieldCheck className="w-5 h-5 text-emerald-500" />
             <span className="font-roboto text-sm font-medium">
-              Paiement 100% sécurisé via :
+              {t('reassurance.payment_secure')}
             </span>
           </div>
           <div className="flex items-center gap-4 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">

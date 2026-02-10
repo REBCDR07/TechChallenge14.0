@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { Instagram, Facebook, Music2, Pin, Mail, Phone, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 /**
  * Footer complet avec colonnes d'information
  */
 const Footer = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulation d'inscription newsletter
-    alert(`Merci ! Vous êtes inscrit avec ${email}`);
+    alert(t('footer.newsletter_success').replace('{email}', email));
     setEmail('');
   };
 
@@ -21,32 +23,36 @@ const Footer = () => {
       <div className="container">
         {/* Grille principale */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10">
-          
+
           {/* Colonne 1 : À propos */}
           <div>
             <h3 className="font-rajdhani font-bold text-xl text-primary mb-4 flex items-center gap-2">
               <Heart className="w-5 h-5 fill-primary" />
-              Sweetheart's Plush
+              {t('footer.about_title')}
             </h3>
             <p className="font-roboto text-sm text-muted-foreground leading-relaxed">
-              Offrez des moments de tendresse inoubliables. Nos peluches sont
-              conçues avec amour pour créer des souvenirs éternels.
+              {t('footer.about_desc')}
             </p>
           </div>
 
           {/* Colonne 2 : Liens utiles */}
           <div>
             <h4 className="font-montserrat font-extrabold text-sm text-card-foreground mb-4 uppercase tracking-wide">
-              Liens utiles
+              {t('footer.links_title')}
             </h4>
             <ul className="space-y-2">
-              {['Livraison', 'Retours', 'FAQ', 'Contact'].map((link) => (
-                <li key={link}>
+              {[
+                { label: t('footer.link_shipping'), href: '#' },
+                { label: t('footer.link_returns'), href: '#' },
+                { label: t('footer.link_faq'), href: '#' },
+                { label: t('footer.link_contact'), href: '#' },
+              ].map((link) => (
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     className="font-roboto text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -56,21 +62,21 @@ const Footer = () => {
           {/* Colonne 3 : Légal */}
           <div>
             <h4 className="font-montserrat font-extrabold text-sm text-card-foreground mb-4 uppercase tracking-wide">
-              Informations légales
+              {t('footer.legal_title')}
             </h4>
             <ul className="space-y-2">
               {[
-                'CGV',
-                'Mentions légales',
-                'Politique de confidentialité',
-                'Cookies',
+                { label: t('footer.link_cgv'), href: '#' },
+                { label: t('footer.link_legal'), href: '#' },
+                { label: t('footer.link_privacy'), href: '#' },
+                { label: t('footer.link_cookies'), href: '#' },
               ].map((link) => (
-                <li key={link}>
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     className="font-roboto text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -80,7 +86,7 @@ const Footer = () => {
           {/* Colonne 4 : Contact & Réseaux */}
           <div>
             <h4 className="font-montserrat font-extrabold text-sm text-card-foreground mb-4 uppercase tracking-wide">
-              Contact
+              {t('footer.contact_title')}
             </h4>
             <ul className="space-y-3 mb-4">
               <li className="flex items-center gap-2">
@@ -128,12 +134,12 @@ const Footer = () => {
         <div className="border-t border-border pt-8 mb-8">
           <div className="max-w-md mx-auto text-center">
             <h4 className="font-montserrat font-extrabold text-lg text-card-foreground mb-3">
-              Restez informé de nos nouveautés 💌
+              {t('footer.newsletter_title')}
             </h4>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <Input
                 type="email"
-                placeholder="Votre email"
+                placeholder={t('footer.newsletter_placeholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -143,7 +149,7 @@ const Footer = () => {
                 type="submit"
                 className="bg-primary hover:bg-secondary text-primary-foreground font-montserrat font-extrabold"
               >
-                S'inscrire
+                {t('footer.newsletter_button')}
               </Button>
             </form>
           </div>
@@ -152,7 +158,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-center">
           <p className="font-roboto text-xs text-muted-foreground">
-            © 2025 Sweetheart's Plush. Fait avec ❤️ pour la Saint-Valentin.
+            {t('footer.copyright')}
           </p>
         </div>
       </div>

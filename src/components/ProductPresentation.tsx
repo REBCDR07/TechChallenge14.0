@@ -10,6 +10,7 @@ import {
   Check
 } from 'lucide-react';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 // Import des images
 import plushFront from '@/assets/plush-front.jpg';
@@ -28,57 +29,59 @@ interface Step {
   features: string[];
 }
 
-const steps: Step[] = [
-  {
-    number: 1,
-    icon: Feather,
-    title: "Douceur Absolue",
-    subtitle: "Toucher Velours",
-    description: "Une caresse infinie grâce à notre tissu premium hypoallergénique. Conçue pour offrir un réconfort immédiat au premier contact.",
-    image: plushTexture,
-    features: ["Coton Bio Certifié", "Texture Nuage", "0% Allergène"]
-  },
-  {
-    number: 2,
-    icon: Heart,
-    title: "Design Romantique",
-    subtitle: "Création Originale",
-    description: "Chaque courbe a été pensée pour inspirer la tendresse. Son expression bienveillante et son cœur brodé en font le messager idéal.",
-    image: plushFront,
-    features: ["Yeux Pétillants", "Cœur Brodé Main", "Sourire Apaisant"]
-  },
-  {
-    number: 3,
-    icon: ShieldCheck,
-    title: "Qualité Premium",
-    subtitle: "Finitions Main",
-    description: "Pas de compromis sur la qualité. Des coutures renforcées et des matériaux durables pour que votre amour traverse le temps.",
-    image: plushSide,
-    features: ["Coutures Doubles", "Rembourrage Haute Densité", "Lavable 30°C"]
-  },
-  {
-    number: 4,
-    icon: Gift,
-    title: "Expérience Cadeau",
-    subtitle: "Unboxing Magique",
-    description: "Bien plus qu'un objet, c'est une expérience. Livrée dans une boîte luxe avec papier de soie et parfum subtil.",
-    image: plushGiftBox,
-    features: ["Boîte Magnétique", "Ruban Satin", "Carte Incluse"]
-  },
-  {
-    number: 5,
-    icon: Sparkles,
-    title: "Magie du Moment",
-    subtitle: "Souvenir Éternel",
-    description: "Imaginez son sourire en découvrant ce compagnon. Un cadeau qui reste et qui rappelle votre amour chaque jour.",
-    image: plushLifestyle,
-    features: ["Effet WOW Garanti", "Compagnon de Vie", "Symbole d'Amour"]
-  },
-];
-
 const ProductPresentation = () => {
+  const { t } = useTranslation();
   const { ref } = useIntersectionObserver({ threshold: 0.1 });
   const [active, setActive] = useState(0);
+
+  const steps: Step[] = [
+    {
+      number: 1,
+      icon: Feather,
+      title: t('product.step1_title'),
+      subtitle: t('product.step1_subtitle'),
+      description: t('product.step1_desc'),
+      image: plushTexture,
+      features: [t('product.step1_feat1'), t('product.step1_feat2'), t('product.step1_feat3')]
+    },
+    {
+      number: 2,
+      icon: Heart,
+      title: t('product.step2_title'),
+      subtitle: t('product.step2_subtitle'),
+      description: t('product.step2_desc'),
+      image: plushFront,
+      features: [t('product.step2_feat1'), t('product.step2_feat2'), t('product.step2_feat3')]
+    },
+    {
+      number: 3,
+      icon: ShieldCheck,
+      title: t('product.step3_title'),
+      subtitle: t('product.step3_subtitle'),
+      description: t('product.step3_desc'),
+      image: plushSide,
+      features: [t('product.step3_feat1'), t('product.step3_feat2'), t('product.step3_feat3')]
+    },
+    {
+      number: 4,
+      icon: Gift,
+      title: t('product.step4_title'),
+      subtitle: t('product.step4_subtitle'),
+      description: t('product.step4_desc'),
+      image: plushGiftBox,
+      features: [t('product.step4_feat1'), t('product.step4_feat2'), t('product.step4_feat3')]
+    },
+    {
+      number: 5,
+      icon: Sparkles,
+      title: t('product.step5_title'),
+      subtitle: t('product.step5_subtitle'),
+      description: t('product.step5_desc'),
+      image: plushLifestyle,
+      features: [t('product.step5_feat1'), t('product.step5_feat2'), t('product.step5_feat3')]
+    },
+  ];
+
   const totalSteps = steps.length;
 
   const handleNext = () => {
@@ -111,11 +114,11 @@ const ProductPresentation = () => {
           className="text-center mb-16 lg:mb-24"
         >
           <h2 className="font-rajdhani font-bold text-4xl sm:text-5xl lg:text-6xl text-primary mb-4 leading-tight">
-            L'excellence dans <br />
-            <span className="text-secondary">chaque détail</span> ✨
+            {t('product.title_main')} <br />
+            <span className="text-secondary">{t('product.title_highlight')}</span> ✨
           </h2>
           <p className="font-roboto text-lg text-muted-foreground max-w-xl mx-auto">
-            Une conception unique pour une émotion inoubliable.
+            {t('product.subtitle')}
           </p>
         </motion.div>
 
@@ -269,7 +272,7 @@ const ProductPresentation = () => {
                       onClick={handleNext}
                       className="group flex items-center gap-2 text-primary font-bold text-sm hover:text-secondary transition-colors"
                     >
-                      Caractéristique suivante
+                      {t('product.next_feat')}
                       <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center group-hover:bg-secondary group-hover:scale-110 transition-all">
                         <ArrowRight className="w-4 h-4" />
                       </div>

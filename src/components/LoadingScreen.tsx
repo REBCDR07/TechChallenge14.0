@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 /**
  * LoadingScreen - Écran de chargement avec compte à rebours 3-2-1-BOOM
  * Animation festive et immersive
  */
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
+  const { t } = useTranslation();
   const [count, setCount] = useState(3);
   const [showBoom, setShowBoom] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -160,7 +162,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                   transition={{ duration: 0.5, repeat: 2 }}
                 >
                   <span className="font-rajdhani font-bold text-6xl sm:text-9xl text-background">
-                    💕 BOOM! 💕
+                    {t('loading.boom')}
                   </span>
                 </motion.div>
 
@@ -170,7 +172,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                   transition={{ delay: 0.5 }}
                   className="font-montserrat font-extrabold text-xl sm:text-2xl text-background/90 mt-4"
                 >
-                  L'amour est dans l'air !
+                  {t('loading.subtitle')}
                 </motion.p>
               </motion.div>
             )}

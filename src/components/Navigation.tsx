@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Heart, ShoppingBag } from 'lucide-react';
+import { Menu, X, Heart, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 /**
  * Navigation sticky avec hamburger mobile
  */
 const Navigation = () => {
+  const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const scrollPosition = useScrollPosition();
   const isScrolled = scrollPosition > 100;
 
   const menuItems = [
-    { label: 'Accueil', href: '#hero' },
-    { label: "Pourquoi l'offrir", href: '#why' },
-    { label: 'La peluche', href: '#product' },
-    { label: 'Témoignages', href: '#testimonials' },
+    { label: t('nav.home'), href: '#hero' },
+    { label: t('nav.why'), href: '#why' },
+    { label: t('nav.product'), href: '#product' },
+    { label: t('nav.testimonials'), href: '#testimonials' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -41,8 +43,8 @@ const Navigation = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-            ? 'bg-background/95 backdrop-blur-md shadow-md'
-            : 'bg-transparent'
+          ? 'bg-background/95 backdrop-blur-md shadow-md'
+          : 'bg-transparent'
           }`}
       >
         <div className="container flex items-center justify-between h-16 px-4">
@@ -83,13 +85,36 @@ const Navigation = () => {
             ))}
           </ul>
 
-          {/* CTA desktop */}
-          <Button
-            onClick={() => scrollToSection('#pricing')}
-            className="hidden lg:flex bg-primary hover:bg-secondary text-primary-foreground font-montserrat font-extrabold"
-          >
-            Commander
-          </Button>
+          {/* Language Switcher & CTA desktop */}
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="flex bg-muted/50 rounded-full p-1 border border-border/50">
+              <button
+                onClick={() => setLanguage('fr')}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${language === 'fr'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                  }`}
+              >
+                FR
+              </button>
+              <button
+                onClick={() => setLanguage('fon')}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${language === 'fon'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                  }`}
+              >
+                FON
+              </button>
+            </div>
+
+            <Button
+              onClick={() => scrollToSection('#pricing')}
+              className="bg-primary hover:bg-secondary text-primary-foreground font-montserrat font-extrabold"
+            >
+              {t('nav.cta')}
+            </Button>
+          </div>
 
           {/* Panier mobile */}
           <button
@@ -146,19 +171,37 @@ const Navigation = () => {
                 ))}
               </ul>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="mt-10"
-              >
+              <div className="flex flex-col gap-6 mt-10">
+                <div className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border border-border/50">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Languages className="w-5 h-5" />
+                    <span className="text-sm font-medium">Langue / Gbewigbe</span>
+                  </div>
+                  <div className="flex bg-muted rounded-lg p-1">
+                    <button
+                      onClick={() => setLanguage('fr')}
+                      className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${language === 'fr' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'
+                        }`}
+                    >
+                      FR
+                    </button>
+                    <button
+                      onClick={() => setLanguage('fon')}
+                      className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${language === 'fon' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'
+                        }`}
+                    >
+                      FON
+                    </button>
+                  </div>
+                </div>
+
                 <Button
                   onClick={() => scrollToSection('#pricing')}
                   className="w-full bg-primary hover:bg-secondary text-primary-foreground font-montserrat font-extrabold py-4"
                 >
-                  Commander maintenant 💝
+                  {t('nav.cta')} {language === 'fr' ? 'maintenant 💝' : 'dinvie 💝'}
                 </Button>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         )}

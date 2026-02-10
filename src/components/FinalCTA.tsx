@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 import plushGiftBox from '@/assets/plush-gift-box.jpg';
 
@@ -14,15 +15,16 @@ interface FinalCTAProps {
  * Compte à rebours + urgence + appel à l'action
  */
 const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-  
+
   // Compte à rebours jusqu'au 14 février 23h59
   const targetDate = new Date(new Date().getFullYear(), 1, 14, 23, 59, 59);
   // Si on est après le 14 février, on prend l'année suivante
   if (targetDate < new Date()) {
     targetDate.setFullYear(targetDate.getFullYear() + 1);
   }
-  
+
   const timeLeft = useCountdown(targetDate);
 
   const scrollToOffer = (event: React.MouseEvent) => {
@@ -58,7 +60,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           transition={{ duration: 0.5 }}
           className="font-rajdhani font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-center text-primary-foreground mb-4"
         >
-          Ne manquez pas ce moment unique 💝
+          {t('cta.title')}
         </motion.h2>
 
         {/* Sous-titre */}
@@ -68,7 +70,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="font-montserrat font-extrabold text-xl sm:text-2xl text-center text-primary-foreground/90 mb-8"
         >
-          La Saint-Valentin approche...
+          {t('cta.subtitle')}
         </motion.p>
 
         {/* Compte à rebours */}
@@ -79,10 +81,10 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           className="flex justify-center gap-3 sm:gap-4 lg:gap-6 mb-10"
         >
           {[
-            { value: timeLeft.days, label: 'Jours' },
-            { value: timeLeft.hours, label: 'Heures' },
-            { value: timeLeft.minutes, label: 'Min' },
-            { value: timeLeft.seconds, label: 'Sec' },
+            { value: timeLeft.days, label: t('cta.days') },
+            { value: timeLeft.hours, label: t('cta.hours') },
+            { value: timeLeft.minutes, label: t('cta.minutes') },
+            { value: timeLeft.seconds, label: t('cta.seconds') },
           ].map((unit, idx) => (
             <div key={idx} className="text-center">
               <div className="bg-background rounded-xl p-3 sm:p-4 lg:p-6 shadow-xl min-w-[60px] sm:min-w-[80px] lg:min-w-[100px]">
@@ -112,7 +114,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           />
           <div className="text-center sm:text-left">
             <p className="font-montserrat font-extrabold text-lg text-primary-foreground">
-              Formule Romantique
+              {t('cta.product_title')}
             </p>
             <p className="font-rajdhani font-bold text-4xl text-background">
               34,90€
@@ -128,7 +130,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           className="flex justify-center mb-6"
         >
           <span className="bg-secondary text-secondary-foreground px-4 py-2 rounded-full font-roboto font-medium text-sm animate-pulse">
-            ⚡ Plus que 23 exemplaires disponibles
+            {t('cta.urgency').replace('{count}', '23')}
           </span>
         </motion.div>
 
@@ -144,7 +146,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
             size="lg"
             className="w-full sm:w-auto px-10 sm:px-16 py-6 text-xl sm:text-2xl font-montserrat font-extrabold bg-background text-primary hover:bg-background/90 hover:scale-105 transition-all duration-300 shadow-2xl animate-pulse-slow"
           >
-            J'offre l'amour maintenant 💝
+            {t('cta.button')}
           </Button>
         </motion.div>
 
@@ -155,7 +157,7 @@ const FinalCTA = ({ onCtaClick }: FinalCTAProps) => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="font-roboto text-xs text-center text-primary-foreground/60"
         >
-          Livraison rapide • Paiement sécurisé • Satisfait ou remboursé
+          {t('cta.reassurance')}
         </motion.p>
       </div>
     </section>
