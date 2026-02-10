@@ -1,0 +1,117 @@
+/* Electric Border CSS */
+@property --electric-border-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #dd8448;
+}
+
+:root {
+  --electric-border-color: #E11D48; /* Brand Color Primary Red/Rose */
+  --electric-light-color: #FB7185; /* Lighter Rose */
+  --gradient-color: #FFE4E6; /* Very light rose */
+  --color-neutral-900: #1a1a1a; /* Fallback dark */
+  --color-card-bg: rgba(255, 255, 255, 0.8); /* Glass effect for light mode */
+}
+
+/* Scoped classes to avoid conflicts */
+.electric-card-container {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(
+      -30deg,
+      var(--gradient-color),
+      transparent,
+      var(--gradient-color)
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.95)
+    );
+  overflow: hidden; /* Ensure overflow is hidden for the card */
+}
+
+.electric-inner-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.electric-border-outer {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(225, 29, 72, 0.3);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+/* The magic moving border */
+.electric-main-border {
+  position: absolute;
+  inset: -4px;
+  border-radius: 24px;
+  border: 2px solid var(--electric-border-color);
+  filter: url(#turbulent-displace); /* Reference the SVG filter */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.electric-glow-layer-1 {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(225, 29, 72, 0.4);
+  border-radius: 24px;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.electric-glow-layer-2 {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--electric-light-color);
+  border-radius: 24px;
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.electric-overlay-1 {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  filter: blur(16px);
+  background: linear-gradient(
+    -30deg,
+    white,
+    transparent 30%,
+    transparent 70%,
+    white
+  );
+  pointer-events: none;
+}
+
+.electric-background-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  filter: blur(40px);
+  opacity: 0.4;
+  z-index: -1;
+  background: linear-gradient(
+    -30deg,
+    var(--electric-light-color),
+    transparent,
+    var(--electric-border-color)
+  );
+  pointer-events: none;
+}
+
+/* Content container */
+.electric-content {
+  position: relative;
+  z-index: 20;
+  height: 100%;
+  width: 100%;
+}
